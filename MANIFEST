@@ -1,0 +1,10 @@
+Build.PL
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+README.pod
+dist.ini
+lib/Acme/Given/Hash.pm
+t/00_works.t
