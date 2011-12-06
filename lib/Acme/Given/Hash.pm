@@ -1,9 +1,10 @@
 package Acme::Given::Hash;
 {
-  $Acme::Given::Hash::VERSION = '0.001';
+  $Acme::Given::Hash::VERSION = '0.002';
 }
 use strict;
 use warnings;
+require 5.0010001;
 use Exporter qw{import};
 our @EXPORT = qw{gvn};
 
@@ -17,7 +18,7 @@ sub gvn ($) {
 
 package Acme::Given::Hash::Object;
 {
-  $Acme::Given::Hash::Object::VERSION = '0.001';
+  $Acme::Given::Hash::Object::VERSION = '0.002';
 }
 use strict;
 use warnings;
