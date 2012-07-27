@@ -18,15 +18,16 @@ my %module_build_args = (
     "Ben Hengst <ben.hengst\@gmail.com>"
   ],
   "dist_name" => "Acme-Given-Hash",
-  "dist_version" => "0.003",
+  "dist_version" => "0.004",
   "license" => "perl",
   "module_name" => "Acme::Given::Hash",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Exporter" => 0,
+    "List::MoreUtils" => "0.33",
     "Test::More" => "0.98",
-    "perl" => "5.010"
+    "perl" => "5.014"
   },
   "script_files" => []
 );

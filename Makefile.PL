@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.010;
+use 5.014;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -24,9 +24,10 @@ my %WriteMakefileArgs = (
   "NAME" => "Acme::Given::Hash",
   "PREREQ_PM" => {
     "Exporter" => 0,
+    "List::MoreUtils" => "0.33",
     "Test::More" => "0.98"
   },
-  "VERSION" => "0.003",
+  "VERSION" => "0.004",
   "test" => {
     "TESTS" => "t/*.t"
   }

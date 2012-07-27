@@ -1,10 +1,11 @@
 package Acme::Given::Hash;
 {
-  $Acme::Given::Hash::VERSION = '0.003';
+  $Acme::Given::Hash::VERSION = '0.004';
 }
 use strict;
 use warnings;
-require 5.0010001;
+require 5.014;
+use List::MoreUtils qw{natatime};
 use Exporter qw{import};
 our @EXPORT = qw{gvn};
 
@@ -12,22 +13,59 @@ our @EXPORT = qw{gvn};
 
 sub gvn ($) {
   my $when = shift;
-  die 'gvn requires a hashref' unless ref($when) eq 'HASH';
-  return bless $when, 'Acme::Given::Hash::Object';
+  # old hashref notation 
+  if ( ref($when) eq 'HASH' ) {
+    return bless {exact => $when, calculate => []}, 'Acme::Given::Hash::Object';
+  }
+  # new arrayref notation 
+  elsif ( ref($when) eq 'ARRAY' ) {
+    my $input = natatime 2, @{ $_[0] };
+    my $self = {exact=>{}, calculate=>[]};
+    my $it = natatime 2, @$when;
+    while (my @pairs = $it->()) {
+      if( ref($pairs[0]) eq '' ) {
+        $self->{exact}->{$pairs[0]} = $pairs[1];
+      }
+      else {
+        push @{ $self->{calculate} }, {match => $pairs[0], value => $pairs[1]};
+      }
+    }
+    return bless $self, 'Acme::Given::Hash::Object';
+  }
+  die 'gvn only takes hashrefs and arrayrefs, you have passed soemthing else';
 }
 
 package Acme::Given::Hash::Object;
 {
-  $Acme::Given::Hash::Object::VERSION = '0.003';
+  $Acme::Given::Hash::Object::VERSION = '0.004';
 }
 use strict;
 use warnings;
 
 use overload '~~' => sub{ 
   my ($self, $key) = @_;
-  return ref($self->{$key}) eq 'CODE' 
-       ? $self->{$key}->() 
-       : $self->{$key};
+  if( exists $self->{exact}->{$key} ){
+    return ref($self->{exact}->{$key}) eq 'CODE'
+         ?  $self->{exact}->{$key}->()
+         :  $self->{exact}->{$key} 
+         ;
+  }
+
+  foreach my $pair (@{ $self->{calculate} } ) {
+    my $match;
+    # 'string' ~~ [1..10] thows a warning, this disables this just for the check
+    { no warnings qw{numeric};
+      $match = $key ~~ $pair->{match};
+    }
+      
+    if( $match ){ 
+      return ref($pair->{value}) eq 'CODE'
+           ?  $pair->{value}->()
+           :  $pair->{value} 
+           ;
+    }
+  }
+  return undef; # no matches found 
 };
 
 1;
