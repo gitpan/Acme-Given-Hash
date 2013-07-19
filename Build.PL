@@ -18,7 +18,7 @@ my %module_build_args = (
     "Ben Hengst <ben.hengst\@gmail.com>"
   ],
   "dist_name" => "Acme-Given-Hash",
-  "dist_version" => "0.005",
+  "dist_version" => "0.006",
   "license" => "perl",
   "module_name" => "Acme::Given::Hash",
   "recommends" => {},
