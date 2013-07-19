@@ -1,6 +1,6 @@
 package Acme::Given::Hash;
 {
-  $Acme::Given::Hash::VERSION = '0.006';
+  $Acme::Given::Hash::VERSION = '0.007';
 }
 use strict;
 use warnings;
@@ -39,7 +39,7 @@ sub gvn ($) {
 
 package Acme::Given::Hash::Object;
 {
-  $Acme::Given::Hash::Object::VERSION = '0.006';
+  $Acme::Given::Hash::Object::VERSION = '0.007';
 }
 use strict;
 use warnings;

@@ -19,4 +19,4 @@ requires:
   List::MoreUtils: 0.33
   Test::More: 0.98
   perl: 5.014
-version: 0.006
+version: 0.007
